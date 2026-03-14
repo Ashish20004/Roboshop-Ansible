@@ -44,7 +44,7 @@
 
      - name: install dependencies
        community.general.npm:
-       path: /app
+         path: /app
 
      - name: copying user service
        ansible.builtin.template":
