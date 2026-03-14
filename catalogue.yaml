@@ -12,11 +12,11 @@
     
     - name: create a system user Roboshop
       ansible.builtin.user:
-       name: Roboshop
-       system: true
-       home: /app
-       shell: /sbin/nologin
-       comment: "Roboshop system user"
+         name: Roboshop
+         system: true
+         home: /app
+         shell: /sbin/nologin
+         comment: "Roboshop system user"  
    
     - name: delete directory
       ansible.builtin.file:
@@ -28,7 +28,7 @@
        path: /app
        state: present
       
-    - name: delete catalogur zip file
+    - name: delete catalogue zip file
       ansible.builtin.file:
        path: /tmp/catalogue.zip
        state: absent
@@ -48,9 +48,13 @@
        path: /app
 
     - name: copying catalogue service
-      ansible.builtin.copy:
-        src: catalaogue.service
+      ansible.builtin.template:
+        src: catalogue.service
         dest: /etc/systemd/system/catalogue.service
+
+    - name: reload daeom system
+      ansible.builtin.systemd:
+        daemon_reload: yes
 
     - name: copy mongo repo
       ansible.builtin.copy:
@@ -76,6 +80,6 @@
     - name: start catalogue service
       ansible.builtin.service:
        name: catalogue
-       state: started
+       state: restarted
        enabled: yes
 
