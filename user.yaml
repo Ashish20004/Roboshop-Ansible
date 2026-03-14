@@ -38,9 +38,9 @@
 
      - name: unzip the code
        ansible.builtin.unarchive:
-       src: /tmp/user.zip
-       dest: /app
-       remote_src: yes
+         src: /tmp/user.zip
+         dest: /app
+         remote_src: yes
 
      - name: install dependencies
        community.general.npm:
