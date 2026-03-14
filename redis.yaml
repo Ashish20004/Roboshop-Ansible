@@ -13,13 +13,13 @@
     - name: change bind address
       ansible.builtin.replace:
         path: /etc/redis/redis.conf
-        regexp: " 127.0.0.1"
+        regexp: "127.0.0.1"
         replace: "0.0.0.0"
 
     - name: Change line
       ansible.builtin.lineinfile:
         path: /etc/redis/redis.conf
-        regexp: "^protected-mode yes"
+        regexp: "^protected-mode"
         line: "protected-mode no"
 
     - name: start redis
