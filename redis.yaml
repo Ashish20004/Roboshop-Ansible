@@ -11,10 +11,10 @@
         state: present
     
     - name: change bind address
-      ansible.builtin.replace:
+      ansible.builtin.lineinfile:
         path: /etc/redis/redis.conf
-        regexp: " 127.0.0.1"
-        replace: " 0.0.0.0"
+        regexp: '^bind'
+        line: 'bind 0.0.0.0 ::1'
 
     - name: Change line
       ansible.builtin.lineinfile:
