@@ -68,7 +68,7 @@
         loop: "{{ instances }}"
         when:  # and
           - item == "frontend"
-          - action == "destroy"
+          - instance_action == "destroy"
 
       - name: delete r53 records
         amazon.aws.route53:
@@ -78,7 +78,7 @@
           type: A
           ttl: 1
         loop: "{{ instances }}"
-        when: action == "destroy"
+        when: instance_action == "destroy"
 
       - name: delete ec2 instance
         amazon.aws.ec2_instance:
@@ -86,4 +86,4 @@
           name: "{{ item }}-{{ env }}"
           wait: false
         loop: "{{ instances }}"
-        when: action == "destroy"
+        when: instance_action == "destroy"
