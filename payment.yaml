@@ -42,7 +42,7 @@
 
     - name: unarchieve the file
       ansible.builtin.unarchive:
-        path: /tmp/payment.zip
+        src: /tmp/payment.zip
         dest: /app
         remote_Src: yes
 
