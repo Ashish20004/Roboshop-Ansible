@@ -1,0 +1,42 @@
+- name: configure dispatch
+  hosts: dispatch
+  become: yes
+  tasks:
+    - name: install golang
+      ansible.builtin.dnf:
+        name: golang
+        state: present
+
+    - name: create roboshop user
+      ansible.builtin.user:
+        name: roboshop
+        home: /app
+        shell: /sbin/nologin
+        system: true
+        comment: "Roboshop system user"
+
+    - name: delete app directory
+      ansible.builtin.file:
+        path: /app
+        state: absent
+
+    - name: create app directory
+      ansible.builtin.file:
+        path: /app
+        state: preset
+
+    - name: remove tmp file
+      ansible.builtin.file:
+        path: /tmp/dispatch.zip
+        state: absent
+
+    - name: Download dispatch code
+      ansible.builtin.get_url:
+        url: https://roboshop-artifacts.s3.amazonaws.com/dispatch-v3.zip 
+        dest: /tmp/dispatch.zip
+
+    - name: unarchive the folder
+      ansible.builtin.unarchive:
+        path: /tmp/dispatch.zip
+        dest: /app 
+    
