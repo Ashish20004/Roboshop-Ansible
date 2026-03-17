@@ -23,7 +23,7 @@
     - name: create app directory
       ansible.builtin.file:
         path: /app
-        state: preset
+        state: directory
 
     - name: remove tmp file
       ansible.builtin.file:
