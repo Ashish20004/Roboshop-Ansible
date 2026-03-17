@@ -24,7 +24,6 @@
          Name: "{{ item }}-{{ env }}"
       loop: "{{ instances }}" 
       register: ec2_output
-      wait: true
       when: instance_action == 'create'
 
     - name: print the output
